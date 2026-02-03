@@ -38,3 +38,6 @@ jobs:
 
       - name: Lint Markdown
         run: pnpm lint:md
+
+      - name: Lint Math Syntax
+        run: pnpm lint:math

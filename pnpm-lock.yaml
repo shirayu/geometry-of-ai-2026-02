@@ -8,6 +8,9 @@ importers:
 
   .:
     devDependencies:
+      katex:
+        specifier: ^0.16.28
+        version: 0.16.28
       markdownlint-cli:
         specifier: ^0.47.0
         version: 0.47.0
