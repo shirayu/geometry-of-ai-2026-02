@@ -3,6 +3,7 @@
     "description": "",
     "devDependencies": {
         "katex": "^0.16.28",
+        "npm-run-all2": "^8.0.4",
         "markdownlint-cli": "^0.47.0"
     },
     "engines": {
@@ -12,7 +13,11 @@
     "main": "",
     "name": "lecture",
     "scripts": {
+        "format": "run-p format:insertion format:markdownlint",
+        "format:insertion": "python3 ./scripts/check_inline_math_spacing.py --fix",
+        "format:markdownlint": "markdownlint -f ./*.md doc/*.md",
         "preinstall": "npx only-allow pnpm",
+        "lint": "run-p lint:math lint:insertion lint:md",
         "lint:math": "node ./scripts/check-math.mjs",
         "lint:insertion": "python3 ./scripts/check_inline_math_spacing.py",
         "lint:md": "markdownlint *.md */*.md"
