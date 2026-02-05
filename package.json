@@ -13,15 +13,24 @@
     "main": "",
     "name": "lecture",
     "scripts": {
-        "format": "run-p format:insertion format:dashlines format:markdownlint",
+        "format": "run-p format:insertion format:dashlines format:markdownlint format:ruff",
         "format:insertion": "python3 ./scripts/check_inline_math_spacing.py --fix",
         "format:dashlines": "python3 ./scripts/remove_dash_only_lines.py",
         "format:markdownlint": "markdownlint -f ./*.md doc/*.md",
+        "format:ruff": "uv run ruff format --respect-gitignore && uv run ruff check --fix",
         "preinstall": "npx only-allow pnpm",
-        "lint": "run-p lint:math lint:insertion lint:md",
+        "lint": "run-s lint:snippets lint:parallel",
         "lint:math": "node ./scripts/check-math.mjs",
         "lint:insertion": "python3 ./scripts/check_inline_math_spacing.py",
-        "lint:md": "markdownlint *.md */*.md"
+        "lint:fence": "python3 ./scripts/lint_no_plain_python_fence.py",
+        "lint:py": "python3 -m compileall -q scripts",
+        "lint:md": "markdownlint *.md */*.md",
+        "lint:parallel": "run-p lint:math lint:insertion lint:fence lint:py lint:md lint:ruff lint:ruff_check",
+        "lint:ruff": "uv run ruff check --respect-gitignore",
+        "lint:ruff_check": "uv run ruff format --respect-gitignore --check",
+        "lint:snippets": "tmpdir=$(mktemp -d) && python3 ./scripts/sync_snippets.py --snippets-dir \"$tmpdir\" extract && diff -qr \"$tmpdir\" snippets",
+        "snippets:extract": "python3 ./scripts/sync_snippets.py extract",
+        "snippets:apply": "python3 ./scripts/sync_snippets.py apply"
     },
     "version": "1.0.0",
     "packageManager": "pnpm@10.5.2"

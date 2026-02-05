@@ -139,9 +139,7 @@ def process_file(path: Path, fix: bool):
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Check spacing around inline math delimiters ($...$)."
-    )
+    parser = argparse.ArgumentParser(description="Check spacing around inline math delimiters ($...$).")
     parser.add_argument(
         "paths",
         nargs="*",
@@ -155,7 +153,7 @@ def main():
     )
     args = parser.parse_args()
 
-    files = sorted({p for p in iter_files(args.paths)})
+    files = sorted(set(iter_files(args.paths)))
     if not files:
         print("No markdown files found.")
         return 0
