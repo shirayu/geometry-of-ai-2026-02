@@ -1,7 +1,7 @@
-import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.svm import SVC
+import numpy as np
 from sklearn.datasets import make_blobs
+from sklearn.svm import SVC
 
 # 2クラスのデータ生成
 X, y = make_blobs(n_samples=100, centers=2, random_state=42, cluster_std=1.5)

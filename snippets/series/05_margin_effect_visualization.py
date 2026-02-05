@@ -1,5 +1,5 @@
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def visualize_margin_effect():
@@ -20,9 +20,7 @@ def visualize_margin_effect():
     plt.plot(np.degrees(theta), cos_theta, "k-", label="Original cos(θ)", linewidth=2)
     plt.plot(np.degrees(theta), arcface, "b-", label=f"ArcFace: cos(θ + {margin_arc})")
     plt.plot(np.degrees(theta), cosface, "r-", label=f"CosFace: cos(θ) - {margin_cos}")
-    plt.plot(
-        np.degrees(theta), sphereface, "g-", label=f"SphereFace: cos({margin_sphere}θ)"
-    )
+    plt.plot(np.degrees(theta), sphereface, "g-", label=f"SphereFace: cos({margin_sphere}θ)")
 
     plt.xlabel("Angle θ (degrees)")
     plt.ylabel("Logit value")

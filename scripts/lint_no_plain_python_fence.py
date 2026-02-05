@@ -28,9 +28,7 @@ def iter_markdown_files(paths: list[str]) -> list[Path]:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(
-        description="Fail when markdown contains plain ```python fences."
-    )
+    parser = argparse.ArgumentParser(description="Fail when markdown contains plain ```python fences.")
     parser.add_argument(
         "paths",
         nargs="*",
@@ -46,9 +44,7 @@ def main() -> int:
 
     has_error = False
     for path in files:
-        for line_no, line in enumerate(
-            path.read_text(encoding="utf-8").splitlines(), start=1
-        ):
+        for line_no, line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
             if PLAIN_PYTHON_FENCE_RE.match(line):
                 print(f"{path}:{line_no}: plain ```python fence is not allowed")
                 has_error = True

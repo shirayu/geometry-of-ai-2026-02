@@ -38,9 +38,7 @@ class ResidualStack(nn.Module):
 
     def __init__(self, dim, num_blocks, hidden_dim=None):
         super().__init__()
-        self.blocks = nn.ModuleList(
-            [ResidualBlock(dim, hidden_dim) for _ in range(num_blocks)]
-        )
+        self.blocks = nn.ModuleList([ResidualBlock(dim, hidden_dim) for _ in range(num_blocks)])
 
     def forward(self, x, return_trajectory=False):
         """

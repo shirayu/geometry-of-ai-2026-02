@@ -72,21 +72,9 @@ class MultiHeadAttention(nn.Module):
         batch_size, seq_len, _ = x.shape
 
         # 線形射影
-        Q = (
-            self.W_q(x)
-            .view(batch_size, seq_len, self.num_heads, self.d_k)
-            .transpose(1, 2)
-        )
-        K = (
-            self.W_k(x)
-            .view(batch_size, seq_len, self.num_heads, self.d_k)
-            .transpose(1, 2)
-        )
-        V = (
-            self.W_v(x)
-            .view(batch_size, seq_len, self.num_heads, self.d_k)
-            .transpose(1, 2)
-        )
+        Q = self.W_q(x).view(batch_size, seq_len, self.num_heads, self.d_k).transpose(1, 2)
+        K = self.W_k(x).view(batch_size, seq_len, self.num_heads, self.d_k).transpose(1, 2)
+        V = self.W_v(x).view(batch_size, seq_len, self.num_heads, self.d_k).transpose(1, 2)
 
         # RoPEの適用（オプション）
         if self.use_rope:
@@ -100,8 +88,6 @@ class MultiHeadAttention(nn.Module):
             output, _ = scaled_dot_product_attention(Q, K, V, mask=mask)
 
         # ヘッドを結合
-        output = (
-            output.transpose(1, 2).contiguous().view(batch_size, seq_len, self.d_model)
-        )
+        output = output.transpose(1, 2).contiguous().view(batch_size, seq_len, self.d_model)
 
         return self.W_o(output)

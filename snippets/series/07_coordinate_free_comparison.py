@@ -30,9 +30,7 @@ def compare_distributions_coordinate_free(kappa1, kappa2):
 kappa_model_a = torch.tensor([50.0, 30.0, 45.0, 20.0])
 kappa_model_b = torch.tensor([40.0, 35.0, 50.0, 15.0])
 
-comparison = compare_distributions_coordinate_free(
-    kappa_model_a.unsqueeze(-1), kappa_model_b.unsqueeze(-1)
-)
+comparison = compare_distributions_coordinate_free(kappa_model_a.unsqueeze(-1), kappa_model_b.unsqueeze(-1))
 
 print("Coordinate-free comparison:")
 for k, v in comparison.items():

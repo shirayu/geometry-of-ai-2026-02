@@ -38,8 +38,6 @@ class vMFLayer(nn.Module):
         log_kappa = self.kappa_layer(x)
         # Softplusで正の値に、さらに範囲を制限
         kappa = F.softplus(log_kappa)
-        kappa = self.kappa_min + (self.kappa_max - self.kappa_min) * torch.sigmoid(
-            kappa - 5
-        )
+        kappa = self.kappa_min + (self.kappa_max - self.kappa_min) * torch.sigmoid(kappa - 5)
 
         return mu, kappa

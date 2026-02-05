@@ -21,6 +21,4 @@ def slerp(v0, v1, t):
 
     # Slerp公式
     sin_theta = torch.sin(theta)
-    return (torch.sin((1 - t) * theta) / sin_theta) * v0 + (
-        torch.sin(t * theta) / sin_theta
-    ) * v1
+    return (torch.sin((1 - t) * theta) / sin_theta) * v0 + (torch.sin(t * theta) / sin_theta) * v1

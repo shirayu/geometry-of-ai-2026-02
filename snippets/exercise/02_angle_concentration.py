@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-
 angles = []
 for _ in range(1000):
     x = np.random.randn(100)

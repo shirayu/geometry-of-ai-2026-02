@@ -8,9 +8,7 @@ def demonstrate_instability():
     # float16では非常に小さい値が0に丸められやすい（アンダーフロー）
     # min positive normal ≈ 6e-5 なので、それより十分小さい値は 0 になりやすい
     very_small = torch.finfo(torch.float16).tiny / 1024  # float32では非ゼロ
-    small_fp16 = torch.full(
-        (3,), very_small, dtype=torch.float32
-    ).half()  # → 0 になりうる
+    small_fp16 = torch.full((3,), very_small, dtype=torch.float32).half()  # → 0 になりうる
 
     print(f"入力 (float16): {small_fp16}")
     print(f"ノルム: {small_fp16.norm()}")  # 非常に小さい、または0

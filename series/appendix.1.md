@@ -295,8 +295,8 @@ model = AutoGPTQForCausalLM.from_quantized("model-gptq")
 > また t-SNE は局所構造を強調しやすく、距離の解釈には注意。
 
 ```appendix1_quantization_visualization.py
-import torch
 import matplotlib.pyplot as plt
+import torch
 from sklearn.manifold import TSNE
 
 

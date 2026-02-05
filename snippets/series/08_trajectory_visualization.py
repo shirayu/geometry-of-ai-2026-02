@@ -32,9 +32,7 @@ def visualize_trajectory_2d(trajectory, title="State Trajectory"):
     colors = plt.cm.viridis(np.linspace(0, 1, batch_size))
 
     for i in range(min(batch_size, 20)):  # 最大20サンプル
-        ax.plot(
-            traj_2d[:, i, 0], traj_2d[:, i, 1], color=colors[i], alpha=0.5, linewidth=1
-        )
+        ax.plot(traj_2d[:, i, 0], traj_2d[:, i, 1], color=colors[i], alpha=0.5, linewidth=1)
         ax.scatter(
             traj_2d[0, i, 0],
             traj_2d[0, i, 1],

@@ -13,9 +13,7 @@ class NormalizedLinear(nn.Module):
 
         # 重みも正規化して初期化
         with torch.no_grad():
-            self.linear.weight.data = F.normalize(
-                self.linear.weight.data, dim=1, eps=eps
-            )
+            self.linear.weight.data = F.normalize(self.linear.weight.data, dim=1, eps=eps)
 
     def forward(self, x):
         # 入力は正規化済みと仮定

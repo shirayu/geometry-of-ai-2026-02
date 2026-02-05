@@ -1,9 +1,9 @@
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 fig, axes = plt.subplots(1, 3, figsize=(12, 4))
 
-for ax, n in zip(axes, [3, 100, 1000]):
+for ax, n in zip(axes, [3, 100, 1000], strict=False):
     # n次元単位球面上の一様サンプル
     samples = np.random.randn(10000, n)
     samples = samples / np.linalg.norm(samples, axis=1, keepdims=True)

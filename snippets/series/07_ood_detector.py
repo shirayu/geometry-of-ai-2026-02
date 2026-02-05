@@ -60,7 +60,10 @@ class OODDetector:
             ood_mask: OODフラグ [batch]
         """
         if not self._is_calibrated:
-            warnings.warn("OODDetector is not calibrated. Results may be unreliable.")
+            warnings.warn(
+                "OODDetector is not calibrated. Results may be unreliable.",
+                stacklevel=2,
+            )
         return kappa.squeeze(-1) < self.threshold
 
     def get_confidence(self, kappa):

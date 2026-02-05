@@ -1,5 +1,5 @@
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 np.random.seed(42)
 
@@ -47,7 +47,7 @@ for r in results:
 
 # 角度のヒストグラム
 fig, axes = plt.subplots(1, 4, figsize=(16, 3))
-for ax, r in zip(axes, results):
+for ax, r in zip(axes, results, strict=False):
     ax.hist(r["angles"], bins=50, density=True, alpha=0.7)
     ax.axvline(90, color="red", linestyle="--", label="90°")
     ax.set_title(f"d = {r['dim']}")

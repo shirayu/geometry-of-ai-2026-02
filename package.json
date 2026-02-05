@@ -28,7 +28,7 @@
         "lint:parallel": "run-p lint:math lint:insertion lint:fence lint:py lint:md lint:ruff lint:ruff_check",
         "lint:ruff": "uv run ruff check --respect-gitignore",
         "lint:ruff_check": "uv run ruff format --respect-gitignore --check",
-        "lint:snippets": "pnpm snippets:extract && git diff --exit-code -- exercise series snippets",
+        "lint:snippets": "tmpdir=$(mktemp -d) && python3 ./scripts/sync_snippets.py --snippets-dir \"$tmpdir\" extract && diff -qr \"$tmpdir\" snippets",
         "snippets:extract": "python3 ./scripts/sync_snippets.py extract",
         "snippets:apply": "python3 ./scripts/sync_snippets.py apply"
     },

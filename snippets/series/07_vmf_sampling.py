@@ -46,9 +46,7 @@ def sample_vmf(mu, kappa, num_samples=1):
         sample_around_north[:, 1:] = sqrt_term.unsqueeze(-1) * v
 
         # Householder変換でμ周りに回転
-        sample = _householder_rotation(
-            sample_around_north, e1.expand(batch_size, -1), mu
-        )
+        sample = _householder_rotation(sample_around_north, e1.expand(batch_size, -1), mu)
         results.append(sample)
 
     return torch.stack(results, dim=1)

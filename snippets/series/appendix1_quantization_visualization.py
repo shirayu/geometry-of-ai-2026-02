@@ -1,5 +1,5 @@
-import torch
 import matplotlib.pyplot as plt
+import torch
 from sklearn.manifold import TSNE
 
 

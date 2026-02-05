@@ -8,9 +8,7 @@ def slerp(v0, v1, t):
     if theta.abs() < 1e-6:
         return v0
     sin_theta = torch.sin(theta)
-    return (torch.sin((1 - t) * theta) / sin_theta) * v0 + (
-        torch.sin(t * theta) / sin_theta
-    ) * v1
+    return (torch.sin((1 - t) * theta) / sin_theta) * v0 + (torch.sin(t * theta) / sin_theta) * v1
 
 
 def lerp(v0, v1, t):

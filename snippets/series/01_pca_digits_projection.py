@@ -1,7 +1,7 @@
-import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.decomposition import PCA
+import numpy as np
 from sklearn.datasets import load_digits
+from sklearn.decomposition import PCA
 
 # 手書き数字データ（64次元）
 digits = load_digits()

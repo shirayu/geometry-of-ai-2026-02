@@ -31,7 +31,5 @@ print("Hard sample:", hard_sample)  # one-hotに近い
 # 温度による変化を可視化
 temperatures = [0.1, 0.5, 1.0, 2.0, 5.0]
 for tau in temperatures:
-    samples = torch.stack(
-        [gumbel_softmax(logits, tau, hard=False) for _ in range(1000)]
-    )
+    samples = torch.stack([gumbel_softmax(logits, tau, hard=False) for _ in range(1000)])
     print(f"τ={tau}: mean={samples.mean(dim=0)}, std={samples.std(dim=0)}")

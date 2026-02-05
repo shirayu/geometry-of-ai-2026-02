@@ -67,9 +67,7 @@ def parse_snippet_blocks(lines: list[str]) -> list[SnippetBlock]:
             marker = m.group(1)
             info = m.group(2).strip()
             first_token = info.split()[0] if info else ""
-            current_name = (
-                first_token if PY_SNIPPET_NAME_RE.match(first_token) else None
-            )
+            current_name = first_token if PY_SNIPPET_NAME_RE.match(first_token) else None
             in_fence = True
             marker_char = marker[0]
             marker_len = len(marker)
@@ -149,9 +147,7 @@ def extract_snippets(files: list[Path], snippets_root: Path) -> int:
             (snippets_dir / name).write_text(content, encoding="utf-8")
             total += 1
 
-    print(
-        f"Wrote {total} snippet files under {snippets_root} (removed {removed} stale .py files)"
-    )
+    print(f"Wrote {total} snippet files under {snippets_root} (removed {removed} stale .py files)")
     return 0
 
 
@@ -170,9 +166,7 @@ def apply_snippets(files: list[Path], snippets_root: Path) -> int:
         for block in blocks:
             snippet_path = snippets_dir / block.name
             if not snippet_path.is_file():
-                missing_errors.append(
-                    f"{path}:{block.open_line_no}: snippet file not found: {snippet_path}"
-                )
+                missing_errors.append(f"{path}:{block.open_line_no}: snippet file not found: {snippet_path}")
 
     if missing_errors:
         for msg in missing_errors:
@@ -201,9 +195,7 @@ def apply_snippets(files: list[Path], snippets_root: Path) -> int:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(
-        description="Sync markdown fenced python snippets and files under snippets/."
-    )
+    parser = argparse.ArgumentParser(description="Sync markdown fenced python snippets and files under snippets/.")
     parser.add_argument(
         "--snippets-dir",
         default="snippets",
@@ -212,9 +204,7 @@ def main() -> int:
 
     subparsers = parser.add_subparsers(dest="command", required=True)
 
-    p_extract = subparsers.add_parser(
-        "extract", help="Extract fenced snippets to files."
-    )
+    p_extract = subparsers.add_parser("extract", help="Extract fenced snippets to files.")
     p_extract.add_argument(
         "paths",
         nargs="*",

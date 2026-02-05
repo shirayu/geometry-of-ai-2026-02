@@ -1,6 +1,7 @@
+import math
+
 import torch
 import torch.nn.functional as F
-import math
 
 
 def scaled_dot_product_attention(Q, K, V, mask=None):

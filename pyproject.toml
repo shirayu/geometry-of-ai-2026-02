@@ -5,10 +5,17 @@ description = "Geometry of AI"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "torch>=2.10.0",
 ]
 
 [dependency-groups]
 dev = [
   "ruff >=0.13.0",
 ]
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "TID", "C4"]
+ignore = ["B008"]                                          # Ignore Depends() in argument defaults (FastAPI pattern)
+fixable = ["ALL"]

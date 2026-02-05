@@ -26,12 +26,12 @@ def natural_gradient_step(params, loss_fn, data, lr=0.01, damping=1e-4):
 
     # 自然勾配 = F^{-1} * grad
     natural_grads = []
-    for g, f in zip(grads, fisher_diag):
+    for g, f in zip(grads, fisher_diag, strict=False):
         natural_grads.append(g.detach() / f)
 
     # パラメータ更新
     with torch.no_grad():
-        for p, ng in zip(params, natural_grads):
+        for p, ng in zip(params, natural_grads, strict=False):
             p.data -= lr * ng
 
     return loss.item()
