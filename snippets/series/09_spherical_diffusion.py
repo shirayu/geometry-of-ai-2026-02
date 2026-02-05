@@ -14,7 +14,10 @@
 - 射影ベースの近似も、非常に小さい dt かつ低次元であれば、
   「球面上でも拡散的な現象が起きる」という直感を得る目的には使える
 - ただし、理論的な整合や定量的な精度は保証されない
-- 研究・実用には専門文献や正しい実装を参照すること
+
+研究・実用には:
+- 専門文献（Riemannian Score-based Generative Models 等）を参照
+- 専用ライブラリ（geomstats, geoopt 等）の使用を検討すること
 """
 
 import matplotlib.pyplot as plt
