@@ -1,0 +1,14 @@
+[project]
+name = "geometry-of-ai"
+version = "0.1.0"
+description = "Geometry of AI"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "torch>=2.10.0",
+]
+
+[dependency-groups]
+dev = [
+  "ruff >=0.13.0",
+]

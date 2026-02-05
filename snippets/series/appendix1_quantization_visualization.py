@@ -2,6 +2,7 @@ import torch
 import matplotlib.pyplot as plt
 from sklearn.manifold import TSNE
 
+
 def visualize_quantization_effect(hidden_orig, hidden_quant):
     """量子化前後の中間表現（テンソル）を比較する簡易例"""
     combined = torch.cat([hidden_orig, hidden_quant], dim=0)

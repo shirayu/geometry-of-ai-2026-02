@@ -1,6 +1,5 @@
 import torch
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
+
 
 def slerp(v0, v1, t):
     """球面線形補間"""
@@ -9,17 +8,21 @@ def slerp(v0, v1, t):
     if theta.abs() < 1e-6:
         return v0
     sin_theta = torch.sin(theta)
-    return (torch.sin((1 - t) * theta) / sin_theta) * v0 + \
-           (torch.sin(t * theta) / sin_theta) * v1
+    return (torch.sin((1 - t) * theta) / sin_theta) * v0 + (
+        torch.sin(t * theta) / sin_theta
+    ) * v1
+
 
 def lerp(v0, v1, t):
     """線形補間（正規化なし）"""
     return (1 - t) * v0 + t * v1
 
+
 def lerp_normalized(v0, v1, t):
     """線形補間して正規化"""
     v = (1 - t) * v0 + t * v1
     return v / v.norm()
+
 
 # 3次元で可視化
 v0 = torch.tensor([1.0, 0.0, 0.0])

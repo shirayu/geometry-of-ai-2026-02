@@ -1,9 +1,11 @@
 from collections import Counter
 
+
 def bag_of_words(sentence):
     """文を単語の袋（頻度辞書）に変換"""
     words = sentence.lower().split()
     return Counter(words)
+
 
 # 意味が異なるが、Bag-of-Wordsでは同一
 sentence1 = "the cat chased the dog"

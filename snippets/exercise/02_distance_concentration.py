@@ -8,7 +8,7 @@ for _ in range(1000):
     distances.append(np.linalg.norm(x - y))
 
 plt.hist(distances, bins=30)
-plt.xlabel('Euclidean Distance')
-plt.title('Distance distribution in 100D')
+plt.xlabel("Euclidean Distance")
+plt.title("Distance distribution in 100D")
 plt.show()
 print(f"Mean: {np.mean(distances):.2f}, Std: {np.std(distances):.2f}")

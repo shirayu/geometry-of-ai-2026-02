@@ -1,14 +1,15 @@
 import torch
 import torch.nn.functional as F
 
+
 def stable_softmax(logits, temperature=1.0, dim=-1):
     """数値安定なSoftmax
-    
+
     Args:
         logits: 入力ロジット
         temperature: 温度パラメータ（default: 1.0）
         dim: softmaxを適用する次元
-    
+
     Returns:
         確率分布
     """
@@ -20,10 +21,12 @@ def stable_softmax(logits, temperature=1.0, dim=-1):
     exp_shifted = torch.exp(shifted)
     return exp_shifted / exp_shifted.sum(dim=dim, keepdim=True)
 
+
 # PyTorchの組み込み関数を使う場合
 def softmax_with_temperature(logits, temperature=1.0, dim=-1):
     """温度付きSoftmax（推奨）"""
     return F.softmax(logits / temperature, dim=dim)
+
 
 # 使用例
 logits = torch.tensor([2.0, 1.0, 0.1])

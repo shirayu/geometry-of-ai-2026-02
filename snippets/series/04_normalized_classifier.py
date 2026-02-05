@@ -2,21 +2,22 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+
 class NormalizedClassifier(nn.Module):
     """正規化された分類器（角度ベースの分類）
-    
+
     入力と重みの両方を正規化し、ロジットを純粋な角度情報にする。
     """
-    
+
     def __init__(self, in_features, num_classes, scale=30.0):
         super().__init__()
         self.weight = nn.Parameter(torch.randn(num_classes, in_features))
         self.scale = scale  # ロジットのスケール（温度の逆数的な役割）
-        
+
         # 重みを正規化して初期化
         with torch.no_grad():
             self.weight.data = F.normalize(self.weight.data, dim=1)
-    
+
     def forward(self, x):
         # 入力を正規化
         x_norm = F.normalize(x, dim=-1)
@@ -26,6 +27,7 @@ class NormalizedClassifier(nn.Module):
         logits = F.linear(x_norm, w_norm)
         # スケーリング（角度マージンの効果を出すため）
         return logits * self.scale
+
 
 # 使用例
 classifier = NormalizedClassifier(768, 10)

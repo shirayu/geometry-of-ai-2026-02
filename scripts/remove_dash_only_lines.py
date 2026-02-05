@@ -31,13 +31,11 @@ def remove_dash_only_lines(text: str) -> str:
 def main() -> int:
     root = Path(__file__).resolve().parents[1]
     files = iter_markdown_files(root)
-    changed = False
     for path in files:
         original = path.read_text(encoding="utf-8")
         updated = remove_dash_only_lines(original)
         if updated != original:
             path.write_text(updated, encoding="utf-8")
-            changed = True
     return 0
 
 

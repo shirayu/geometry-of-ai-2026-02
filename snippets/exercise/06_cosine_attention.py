@@ -2,11 +2,13 @@ import torch
 import torch.nn.functional as F
 import math
 
+
 def standard_attention(Q, K, V):
     d_k = Q.size(-1)
     scores = torch.matmul(Q, K.transpose(-2, -1)) / math.sqrt(d_k)
     weights = F.softmax(scores, dim=-1)
     return torch.matmul(weights, V), weights
+
 
 def cosine_attention(Q, K, V, scale=10.0):
     Q_norm = F.normalize(Q, dim=-1)
@@ -14,6 +16,7 @@ def cosine_attention(Q, K, V, scale=10.0):
     scores = torch.matmul(Q_norm, K_norm.transpose(-2, -1)) * scale
     weights = F.softmax(scores, dim=-1)
     return torch.matmul(weights, V), weights
+
 
 # テスト
 Q = torch.randn(1, 4, 8)  # batch=1, seq=4, dim=8

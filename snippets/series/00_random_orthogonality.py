@@ -1,26 +1,23 @@
 import torch
-import matplotlib.pyplot as plt
+
 
 def check_random_orthogonality(dims, n_pairs=1000):
     """高次元でランダムベクトルの内積分布を調べる"""
     results = []
-    
+
     for d in dims:
         # 単位球面上の一様ランダムベクトル
         v1 = torch.randn(n_pairs, d)
         v1 = v1 / v1.norm(dim=1, keepdim=True)
         v2 = torch.randn(n_pairs, d)
         v2 = v2 / v2.norm(dim=1, keepdim=True)
-        
+
         # 内積の計算
         dots = (v1 * v2).sum(dim=1)
-        results.append({
-            'dim': d,
-            'mean': dots.mean().item(),
-            'std': dots.std().item()
-        })
-    
+        results.append({"dim": d, "mean": dots.mean().item(), "std": dots.std().item()})
+
     return results
+
 
 # 実験
 dims = [10, 100, 1000, 10000]
