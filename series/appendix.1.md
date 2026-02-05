@@ -139,9 +139,18 @@ ______|            |______
 - 対策2: 球面上で直接量子化（研究段階）
 
 ```appendix1_spherical_quantization.py
+import torch
+import torch.nn.functional as F
+
+
+def quantize(tensor):
+    return tensor
+
+
 # 概念的なコード
+x = torch.randn(2, 3)
 x_normalized = F.normalize(x, dim=-1)  # ノルム1に正規化
-x_quantized = quantize(x_normalized)   # 量子化
+x_quantized = quantize(x_normalized)  # 量子化
 # この時点で ||x_quantized|| ≠ 1 の可能性
 x_renormalized = F.normalize(x_quantized, dim=-1)  # 再正規化
 ```
@@ -238,17 +247,20 @@ LLM推論では、実務上しばしば以下が支配的になる：
 ```appendix1_symmetric_quantization.py
 import torch
 
+
 def quantize_tensor_symmetric(x, bits=8, eps=1e-8):
     """対称量子化の概念例（スカラーscale）。
     実務では per-channel / group-wise がよく使われる。
     """
-    qmin, qmax = -(2**(bits-1)), 2**(bits-1) - 1
+    qmin, qmax = -(2 ** (bits - 1)), 2 ** (bits - 1) - 1
     scale = x.abs().max().clamp_min(eps) / qmax
     x_q = torch.round(x / scale).clamp(qmin, qmax)
     return x_q, scale
 
+
 def dequantize_tensor(x_q, scale):
     return x_q * scale
+
 
 # 使用例
 weight = torch.randn(768, 768)
@@ -262,10 +274,14 @@ print(f"平均絶対誤差: {(weight - weight_approx).abs().mean():.6f}")
 ```appendix1_quantization_libraries.py
 # bitsandbytes（4-bit/8-bit量子化）
 import bitsandbytes as bnb
+from auto_gptq import AutoGPTQForCausalLM
+
+in_features = 1024
+out_features = 1024
+
 linear_4bit = bnb.nn.Linear4bit(in_features, out_features)
 
 # AutoGPTQ（GPTQ量子化）
-from auto_gptq import AutoGPTQForCausalLM
 model = AutoGPTQForCausalLM.from_quantized("model-gptq")
 
 # llama.cpp（GGUF形式、CPU推論）
@@ -282,6 +298,7 @@ model = AutoGPTQForCausalLM.from_quantized("model-gptq")
 import torch
 import matplotlib.pyplot as plt
 from sklearn.manifold import TSNE
+
 
 def visualize_quantization_effect(hidden_orig, hidden_quant):
     """量子化前後の中間表現（テンソル）を比較する簡易例"""
