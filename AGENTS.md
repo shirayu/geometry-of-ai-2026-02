@@ -26,6 +26,11 @@
 - Code fence
     - pythonコードは `04_stable_softmax.py` のような命名でfence。`snippets/`と同期。
     - txtは `txt` でfence
+- 長いPythonコードの表示方針（`series/*`）
+    - `60`行以上: `<details><summary>...</summary>` で囲む（文書内の一貫性を優先）
+    - `40`〜`59`行: そのまま表示を基本（必要なら同一文書内の見た目に合わせて折りたたみ可）
+    - `40`行未満: 原則そのまま表示（同一文書内の一貫性が必要なら折りたたみ可）
+    - 行数判定は `pnpm run lint:snippet_lines` を使用（`lint:snippets` で同期が取れていることが前提）
 
 ## PR 前チェック
 
