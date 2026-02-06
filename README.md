@@ -91,4 +91,4 @@ MoEやTDA等の最新知見を交え、手法の陳腐化に抗う普遍的な�
 - 企画・統括: [林部 祐太](https://hayashibe.jp/)
 - 執筆: [Claude](https://claude.ai/)
 - 主査読: [ChatGPT](https://chatgpt.com/)
-- 副査読: [Gemini](https://gemini.google.com/)
+- 副査読・インサイトコンサル: [Gemini](https://gemini.google.com/)
