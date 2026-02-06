@@ -102,9 +102,9 @@ Softmaxは、この類似度を確率分布に変換する。結果として、*
 
 | 種類 | 計算の省略 | 情報の重み付け | 動的性 | 例 |
 | --- | --- | --- | --- | --- |
-| **計算的剪定** | ○（計算を省く） | △（削除or保持） | 静的 | 従来のPruning |
+| **計算的剪定** | ○（計算を省く） | △（削除or保持） | 静的 | 構造化Pruning（実効速度は実装依存） |
 | **標準Attention** | ✗（全計算） | ○（Softmax重み） | 動的 | Transformer |
-| **Sparse Attention** | ○（Top-K等） | ○（重み付け） | 動的 | Top-K Attention |
+| **Sparse Attention** | ○（Top-K等） | ○（重み付け） | 動的 | Top-K Attention, Local Attention |
 
 > [!IMPORTANT]
 > **「剪定」という用語の注意**：本資料では教育的メタファーとして「Attention=動的剪定」と表現しているが、厳密には標準Attentionは**計算を省いていない**。真の計算削減を行うのは、Sparse Attention（Top-K Attention、Local Attention、Block Sparse Attention等）やMoEである。
@@ -242,20 +242,23 @@ $$\mathbb{E}[\mathbf{u}^\top \mathbf{v}] = 0, \quad \text{Var}[\mathbf{u}^\top \
 
 これらの条件下では、無関係な次元を計算に含めることは、ノイズを増やすことに等しくなりうる。
 
-### SNR観点の例示モデル（簡略化された仮定下）
+### SNR観点の例示モデル（概念的理解のための簡略化）
 
-**以下は教育的な例示であり、厳密な証明ではない**ことに注意されたい。
+**以下は教育的な概念式であり、厳密な証明や一般的な定理ではない**ことに注意されたい。
 
-ある単純化されたモデルを考える：
+ある**極めて理想化された**モデルを考える：
 - 意味のある信号が $k$ 次元に存在
-- 残りの $(d - k)$ 次元が独立な平均0のノイズ
-- 各次元の信号とノイズが加法的に分離可能
+- 残りの $(d - k)$ 次元が**独立な**平均0のノイズ
+- 各次元の信号とノイズが**加法的に分離可能**
+- 各次元の**分散が等しい**（または同程度のオーダー）
 
-この**極めて理想化された**設定下では、信号対雑音比（SNR）は概念的に：
+この理想化された設定下では、信号対雑音比（SNR）は概念的に以下のオーダーとなる：
 
-$$\text{SNR} \propto \frac{\text{信号次元}}{\text{ノイズ次元}} \sim \frac{k}{d-k}$$
+$$\text{SNR} \sim \frac{\text{信号次元}}{\text{ノイズ次元}} \sim \frac{k}{d-k}$$
 
-$d$ が大きく $k$ が固定なら、SNRは悪化する。したがって、**このモデルが成り立つ場合**、無関係な次元を計算から除外することは情報の純度を高める。
+（ここで $\sim$ はオーダーの意味であり、厳密な等式ではない）
+
+$d$ が大きく $k$ が固定なら、SNRは悪化する傾向がある。したがって、**このモデルが成り立つ特定の条件下では**、無関係な次元を計算から除外することが情報の純度を高める可能性がある。
 
 > [!CAUTION]
 > 上記のSNRモデルは以下の強い仮定に基づいており、一般には成り立たない：
@@ -358,13 +361,14 @@ Token3: L1 → skip → skip → L4 （L2, L3をスキップ）
 
 ```txt
 メモリ階層（上に行くほど高速・小容量）:
+*数値はGPU世代による代表例
 
 ┌─────────────────┐
-│ レジスタ (Registers)    │ ～ KB, 超高速
+│ レジスタ (Registers)         │ ～ KB級, 超高速
 ├─────────────────┤
-│ SRAM (Shared Memory)    │ ～ 100 KB, 高速（GPU内蔵）
+│ SRAM (Shared Memory/L1キャッシュ) │ 数十～数百KB, 高速（オンチップ）
 ├─────────────────┤
-│ HBM (High Bandwidth Memory) │ ～ 数十GB, 低速（GPU外部）
+│ HBM (High Bandwidth Memory)    │ ～ 数十GB, 低速（外部メモリ）
 └─────────────────┘
 ```
 
@@ -372,11 +376,13 @@ Token3: L1 → skip → skip → L4 （L2, L3をスキップ）
 
 ### FlashAttentionの核心：I/O削減と再計算戦略
 
-**FlashAttention**（Dao et al., 2022）の本質は、以下の二つの技術の組合せである：
+**FlashAttention**（Dao et al., 2022）の本質は、以下の**複数の技術の組合せ**である：
 
 1. **タイリング（ブロック分割）**：行列を小さなタイル（ブロック）に分割し、各タイルをSRAMに載せて高速計算
 2. **オンラインSoftmax**：Softmaxの計算を段階的に更新することで、全行列を一度にメモリに載せる必要を回避
-3. **再計算（Recomputation）**：Backward時にAttention行列を再計算することで、メモリ保存を削減
+3. **再計算（Recomputation）**：Backward時にAttention行列を保存せず再計算することで、Forward時のメモリ保存を削減
+
+これらにより、HBM↔SRAM間のI/O回数を劇的に削減する。
 
 ```txt
 通常のAttention:
@@ -466,15 +472,15 @@ FlashAttention:
 
 ## 実装ノート
 
-### Attentionの計算量比較
+### Attentionの計算パターン比較
 
 > [!WARNING]
-> **教育目的のコード**：以下の`sparse_attention_topk`は、「情報的剪定（重み付け）」と「計算的剪定（省略）」の違いを示すための教育的実装である。実際には以下の理由で実用的でない：
+> **教育目的のコード**：以下の`topk_reweighting_attention`は、「情報的剪定（重み付け）」と「計算的剪定（省略）」の違いを示すための教育的実装である。実際には以下の理由で実用的でない：
 > 1. **全体のスコア行列を計算**している（O(n²)の計算は省略されていない）
-> 2. **ゼロ行列を作ってscatter**する実装は、メモリ効率が悪く、むしろ遅い
+> 2. **ゼロ行列を作ってscatter**する実装は、メモリ効率が悪く、標準実装より遅い可能性が高い
 > 3. 真のSparse Attentionには、専用のカーネル（CUDA実装）やCSR等のスパースデータ構造が必要
 > 
-> 本コードの目的は「Top-K選択の概念」を示すことであり、性能改善ではない。
+> 本コードの目的は「Top-K選択の概念」を示すことであり、性能改善ではない。速度比較は意味を持たない。
 
 ```python
 import torch
@@ -488,11 +494,12 @@ def standard_attention(Q, K, V):
     output = torch.matmul(attention_weights, V)
     return output
 
-def sparse_attention_topk(Q, K, V, k=10):
-    """Top-Kによる「情報的」スパース化（教育目的の概念実装）
+def topk_reweighting_attention(Q, K, V, k=10):
+    """Top-Kによる情報的重み付け（教育目的の概念実装）
     
     注意：このコードは計算を省略していない（全スコアを計算している）。
     真の計算的剪定には、スコア計算自体をスキップする必要がある。
+    実行速度は標準実装と同等か、むしろ遅い可能性が高い。
     """
     d_k = Q.size(-1)
     scores = torch.matmul(Q, K.transpose(-2, -1)) / (d_k ** 0.5)  # ← 全計算（省略なし）
@@ -507,7 +514,7 @@ def sparse_attention_topk(Q, K, V, k=10):
     output = torch.matmul(sparse_weights, V)
     return output
 
-# ベンチマーク
+# ベンチマーク（参考：速度比較は意味を持たない）
 batch_size, num_heads, seq_len, d_k = 2, 8, 512, 64
 Q = torch.randn(batch_size, num_heads, seq_len, d_k, device='cuda')
 K = torch.randn(batch_size, num_heads, seq_len, d_k, device='cuda')
@@ -516,16 +523,19 @@ V = torch.randn(batch_size, num_heads, seq_len, d_k, device='cuda')
 # 標準Attention
 start = time.time()
 out1 = standard_attention(Q, K, V)
+torch.cuda.synchronize()
 time1 = time.time() - start
 
-# 「スパース」Attention (k=32) - 教育目的実装
+# Top-K重み付け (k=32) - 教育目的実装
 start = time.time()
-out2 = sparse_attention_topk(Q, K, V, k=32)
+out2 = topk_reweighting_attention(Q, K, V, k=32)
+torch.cuda.synchronize()
 time2 = time.time() - start
 
 print(f"Standard Attention: {time1:.4f}s")
-print(f"'Sparse' Attention (k=32, 教育実装): {time2:.4f}s")
-print(f"Note: 教育実装は実際には遅い可能性が高い")
+print(f"Top-K Reweighting (k=32, 教育実装): {time2:.4f}s")
+print(f"Note: 教育実装は標準実装と同等か、むしろ遅い可能性が高い")
+print(f"      真の高速化には専用カーネルが必要")
 ```
 
 ### MoEの簡略実装
@@ -651,7 +661,7 @@ print(f"Parameters saved: ~{(1 - 2/8) * 100:.1f}% (for K,V)")
 ### Pruning（剪定）
 
 - LeCun, Y., Denker, J. S., & Solla, S. A. (1990). Optimal Brain Damage. *NeurIPS 1989*.
-    - ニューラルネットワークの剪定の古典的論文。
+    - ニューラルネットワークの剪定の古典的論文。構造化pruningの場合は実効速度向上が見込めるが、非構造化pruningでは実装次第で速度向上が限定的な場合もある。
 
 ### Mixture of Experts (MoE)
 
