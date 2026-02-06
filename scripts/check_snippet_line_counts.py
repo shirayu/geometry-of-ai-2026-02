@@ -59,7 +59,8 @@ def collect_fence_locations(markdown_files: list[Path]) -> dict[str, list[tuple[
             if stripped.startswith("```") or stripped.startswith("~~~"):
                 marker = stripped[:3]
                 if not in_fence:
-                    fence_name = stripped[3:].strip().split(maxsplit=1)[0]
+                    parts = stripped[3:].strip().split(maxsplit=1)
+                    fence_name = parts[0] if parts else ""
                     if fence_name.endswith(".py"):
                         locations.setdefault(fence_name, []).append((path, line_no, details_depth > 0))
                     in_fence = True
