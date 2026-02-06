@@ -23,21 +23,7 @@
 
 ```appendix3_cnn_flow.py
 # CNNの典型的な計算フロー（教育用の最小スタブ）
-input_image = "dummy_image"
-
-
-def conv1(t):
-    return t
-
-
-def conv2(t):
-    return t
-
-
-def relu(t):
-    return t
-
-
+# ruff: noqa
 x = input_image  # どんな画像でも
 x = conv1(x)  # 常に conv1 が適用される
 x = relu(x)
