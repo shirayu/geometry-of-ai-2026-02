@@ -250,12 +250,12 @@ Expert4: ██ (4%)
 
 ルーティング崩壊を防ぐため、**Load Balancing Loss**が訓練時に追加される。Switch Transformer（Fedus et al., 2022）では、以下のような補助損失が導入される：
 
-$$\mathcal{L}_{\text{balance}} = \alpha \cdot N \cdot \sum_{i=1}^{N_{\text{experts}}} f_i \cdot p_i$$
+$$\mathcal{L}_{\text{balance}} = \alpha \cdot N_{\text{experts}} \cdot \sum_{i=1}^{N_{\text{experts}}} f_i \cdot p_i$$
 
 **記号の定義**（論文・解説により記号と概念の対応が入れ替わることがあるため注意）：
 - $f_i$ : Expert $i$ に実際に割り当てられたトークンの割合（**load** - 実測値）
 - $p_i$ : Expert $i$ へのルーティング確率の平均（**importance** - 期待値）
-- $N$ : Expert数
+- $N_{\text{experts}}$ : Expert数
 - $\alpha$ : バランス係数
 
 > [!NOTE]
