@@ -46,7 +46,7 @@
   
   <!-- Positive Curvature (Sphere) -->
   <g id="positive">
-    <text x="450" y="70" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">球面 (曲率 > 0)</text>
+    <text x="450" y="70" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">球面 (曲率 &gt; 0)</text>
     
     <!-- Sphere -->
     <circle cx="450" cy="180" r="90" fill="url(#sphereGrad2)" stroke="#2060a0" stroke-width="2"/>
@@ -67,7 +67,7 @@
     <path d="M 450,227 Q 455,230 460,230" fill="none" stroke="#fa5252" stroke-width="2"/>
     
     <!-- Labels -->
-    <text x="450" y="300" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#333" font-weight="bold">内角の和 > 180°</text>
+    <text x="450" y="300" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#333" font-weight="bold">内角の和 &gt; 180°</text>
     <text x="450" y="318" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#666">楕円幾何学</text>
     
     <!-- Example annotation -->
@@ -76,7 +76,7 @@
   
   <!-- Negative Curvature (Hyperbolic) -->
   <g id="negative">
-    <text x="750" y="70" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">双曲面 (曲率 < 0)</text>
+    <text x="750" y="70" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">双曲面 (曲率 &lt; 0)</text>
     
     <!-- Saddle surface representation (Poincaré disk style) -->
     <circle cx="750" cy="180" r="90" fill="url(#hyperbolicGrad)" stroke="#c2790a" stroke-width="2"/>
@@ -97,7 +97,7 @@
     <path d="M 750,220 Q 755,222 760,222" fill="none" stroke="#fa5252" stroke-width="2"/>
     
     <!-- Labels -->
-    <text x="750" y="300" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#333" font-weight="bold">内角の和 < 180°</text>
+    <text x="750" y="300" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#333" font-weight="bold">内角の和 &lt; 180°</text>
     <text x="750" y="318" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#666">双曲幾何学</text>
     
     <!-- Example annotation -->
