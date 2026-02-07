@@ -1,0 +1,61 @@
+<svg viewBox="200 40 420 430" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrowhead2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#333" />
+    </marker>
+    <marker id="arrowhead-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#fa5252" />
+    </marker>
+    <marker id="arrowhead-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#228be6" />
+    </marker>
+  </defs>
+  
+  <!-- Main diagram -->
+  <g id="interpolation-diagram">
+    <!-- Unit circle (sphere cross-section) -->
+    <circle cx="400" cy="280" r="180" fill="none" stroke="#adb5bd" stroke-width="2"/>
+    <circle cx="400" cy="280" r="180" fill="#e7f5ff" fill-opacity="0.3"/>
+    
+    <!-- Coordinate axes -->
+    <line x1="200" y1="280" x2="600" y2="280" stroke="#dee2e6" stroke-width="1" stroke-dasharray="5,5"/>
+    <line x1="400" y1="80" x2="400" y2="480" stroke="#dee2e6" stroke-width="1" stroke-dasharray="5,5"/>
+    
+    <!-- Start vector v0 -->
+    <line x1="400" y1="280" x2="527.28" y2="153.58" stroke="#495057" stroke-width="3" marker-end="url(#arrowhead2)"/>
+    <text x="545" y="145" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">v₀</text>
+    
+    <!-- End vector v1 -->
+    <line x1="400" y1="280" x2="272.72" y2="153.58" stroke="#495057" stroke-width="3" marker-end="url(#arrowhead2)"/>
+    <text x="245" y="145" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">v₁</text>
+    
+    <!-- Slerp path (arc on circle) -->
+    <path d="M 527.28,153.58 A 180,180 0 0,0 272.72,153.58" fill="none" stroke="#228be6" stroke-width="3" stroke-dasharray="none"/>
+    
+    <!-- Linear interpolation path (straight line) -->
+    <line x1="527.28" y1="153.58" x2="272.72" y2="153.58" stroke="#fa5252" stroke-width="3" stroke-dasharray="8,4"/>
+    
+    <!-- Intermediate points on Slerp -->
+    <circle cx="470" cy="131" r="4" fill="#228be6"/>
+    <circle cx="400" cy="100" r="4" fill="#228be6"/>
+    <circle cx="330" cy="131" r="4" fill="#228be6"/>
+    
+    <!-- Intermediate points on Lerp -->
+    <circle cx="470" cy="153.58" r="4" fill="#fa5252"/>
+    <circle cx="400" cy="153.58" r="4" fill="#fa5252"/>
+    <circle cx="330" cy="153.58" r="4" fill="#fa5252"/>
+    
+    <!-- Annotation: Slerp stays on sphere -->
+    <path d="M 400,100 L 400,65" stroke="#228be6" stroke-width="1.5" marker-end="url(#arrowhead-blue)"/>
+    <text x="400" y="55" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#228be6" font-weight="bold">Slerp: 球面上を移動</text>
+    
+    <!-- Annotation: Lerp cuts through sphere -->
+    <path d="M 400,153.58 L 400,195" stroke="#fa5252" stroke-width="1.5" marker-end="url(#arrowhead-red)"/>
+    <text x="400" y="210" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#fa5252" font-weight="bold">線形補間: 球面を突き抜ける</text>
+    
+    <!-- Angle theta -->
+    <path d="M 445.96,234.35 A 65,65 0 0,0 354.04,234.35" fill="none" stroke="#37b24d" stroke-width="2"/>
+    <text x="400" y="260" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#37b24d" font-weight="bold">θ</text>
+  </g>
+  
+</svg>
