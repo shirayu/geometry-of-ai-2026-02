@@ -1,4 +1,4 @@
-<svg viewBox="0 0 900 350" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 55 900 290" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <radialGradient id="sphereGrad2" cx="40%" cy="40%">
       <stop offset="0%" style="stop-color:#e0f0ff;stop-opacity:1" />
@@ -9,9 +9,6 @@
       <stop offset="100%" style="stop-color:#d9a066;stop-opacity:1" />
     </radialGradient>
   </defs>
-  
-  <!-- Title -->
-  <text x="450" y="30" font-family="Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" fill="#333">曲率による三角形の違い</text>
   
   <!-- Flat (Zero Curvature) -->
   <g id="flat">

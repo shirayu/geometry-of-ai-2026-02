@@ -1,4 +1,4 @@
-<svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 55 800 330" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
       <polygon points="0 0, 10 3, 0 6" fill="#333" />
@@ -8,9 +8,6 @@
       <stop offset="100%" style="stop-color:#4080c0;stop-opacity:1" />
     </radialGradient>
   </defs>
-  
-  <!-- Title -->
-  <text x="400" y="30" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#333">多様体の局所と大域の構造</text>
   
   <!-- Left: Sphere with coordinate patches -->
   <g id="sphere">

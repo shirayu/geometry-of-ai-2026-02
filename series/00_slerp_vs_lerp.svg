@@ -1,4 +1,4 @@
-<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 40 800 450" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <marker id="arrowhead2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
       <polygon points="0 0, 10 3, 0 6" fill="#333" />
@@ -10,9 +10,6 @@
       <polygon points="0 0, 10 3, 0 6" fill="#228be6" />
     </marker>
   </defs>
-  
-  <!-- Title -->
-  <text x="400" y="35" font-family="Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" fill="#333">球面線形補間 (Slerp) vs 線形補間</text>
   
   <!-- Main diagram -->
   <g id="interpolation-diagram">
@@ -57,7 +54,7 @@
     <text x="400" y="210" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#fa5252" font-weight="bold">線形補間: 球面を突き抜ける</text>
     
     <!-- Angle theta -->
-    <path d="M 455,240 A 65,65 0 0,0 345,240" fill="none" stroke="#37b24d" stroke-width="2"/>
+    <path d="M 445.96,234.35 A 65,65 0 0,0 354.04,234.35" fill="none" stroke="#37b24d" stroke-width="2"/>
     <text x="400" y="260" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#37b24d" font-weight="bold">θ</text>
   </g>
   
