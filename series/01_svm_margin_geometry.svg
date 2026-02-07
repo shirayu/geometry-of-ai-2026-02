@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <marker id="arrowhead2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#2c3e50"/>
+    </marker>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="500" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="400" y="35" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#2c3e50" text-anchor="middle">SVMのマージン最大化の幾何学</text>
+  
+  <!-- Main visualization area -->
+  <g transform="translate(100, 80)">
+    <!-- Axes -->
+    <line x1="0" y1="350" x2="600" y2="350" stroke="#95a5a6" stroke-width="1.5" marker-end="url(#arrowhead2)"/>
+    <line x1="50" y1="400" x2="50" y2="0" stroke="#95a5a6" stroke-width="1.5" marker-end="url(#arrowhead2)"/>
+    <text x="610" y="355" font-family="Arial, sans-serif" font-size="12" fill="#7f8c8d">x₁</text>
+    <text x="40" y="15" font-family="Arial, sans-serif" font-size="12" fill="#7f8c8d">x₂</text>
+    
+    <!-- Margin boundaries (dashed lines) -->
+    <line x1="100" y1="320" x2="500" y2="80" stroke="#95a5a6" stroke-width="2" stroke-dasharray="8,4"/>
+    <line x1="140" y1="320" x2="540" y2="80" stroke="#95a5a6" stroke-width="2" stroke-dasharray="8,4"/>
+    
+    <!-- Decision boundary (solid line) -->
+    <line x1="120" y1="320" x2="520" y2="80" stroke="#2c3e50" stroke-width="3"/>
+    <text x="530" y="75" font-family="Arial, sans-serif" font-size="13" fill="#2c3e50">決定境界</text>
+    <text x="530" y="90" font-family="Arial, sans-serif" font-size="11" fill="#7f8c8d">w·x + b = 0</text>
+    
+    <!-- Class 1 data points (red) -->
+    <circle cx="180" cy="280" r="7" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+    <circle cx="200" cy="250" r="7" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+    <circle cx="160" cy="300" r="7" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+    <circle cx="220" cy="260" r="7" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+    <circle cx="190" cy="290" r="7" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+    <circle cx="210" cy="270" r="7" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+    <circle cx="170" cy="285" r="7" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+    
+    <!-- Support vector from class 1 (highlighted) -->
+    <circle cx="150" cy="265" r="9" fill="#e74c3c" stroke="#27ae60" stroke-width="3" filter="url(#glow)"/>
+    <circle cx="150" cy="265" r="15" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="3,2"/>
+    
+    <!-- Class 2 data points (blue) -->
+    <circle cx="420" cy="140" r="7" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+    <circle cx="440" cy="120" r="7" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+    <circle cx="400" cy="160" r="7" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+    <circle cx="460" cy="130" r="7" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+    <circle cx="430" cy="150" r="7" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+    <circle cx="450" cy="140" r="7" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+    <circle cx="410" cy="145" r="7" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+    
+    <!-- Support vector from class 2 (highlighted) -->
+    <circle cx="480" cy="155" r="9" fill="#3498db" stroke="#27ae60" stroke-width="3" filter="url(#glow)"/>
+    <circle cx="480" cy="155" r="15" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="3,2"/>
+    
+    <!-- Margin width annotation -->
+    <g transform="translate(300, 200)">
+      <!-- Perpendicular lines to decision boundary -->
+      <line x1="-15" y1="-60" x2="15" y2="-40" stroke="#f39c12" stroke-width="2"/>
+      <line x1="-15" y1="-60" x2="-10" y2="-55" stroke="#f39c12" stroke-width="1.5"/>
+      <line x1="-15" y1="-60" x2="-20" y2="-58" stroke="#f39c12" stroke-width="1.5"/>
+      
+      <line x1="15" y1="-40" x2="-15" y2="-20" stroke="#f39c12" stroke-width="2"/>
+      <line x1="15" y1="-40" x2="20" y2="-38" stroke="#f39c12" stroke-width="1.5"/>
+      <line x1="15" y1="-40" x2="10" y2="-35" stroke="#f39c12" stroke-width="1.5"/>
+      
+      <!-- Margin label -->
+      <text x="25" y="-48" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#f39c12">マージン</text>
+      <text x="25" y="-35" font-family="Arial, sans-serif" font-size="10" fill="#e67e22">2/||w||</text>
+    </g>
+    
+    <!-- Legend -->
+    <g transform="translate(50, 50)">
+      <rect x="0" y="0" width="200" height="120" fill="white" stroke="#bdc3c7" stroke-width="1.5" rx="5" opacity="0.95"/>
+      <text x="100" y="20" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#2c3e50" text-anchor="middle">凡例</text>
+      
+      <circle cx="15" cy="40" r="6" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+      <text x="30" y="45" font-family="Arial, sans-serif" font-size="11" fill="#2c3e50">クラス1 (y = -1)</text>
+      
+      <circle cx="15" cy="60" r="6" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+      <text x="30" y="65" font-family="Arial, sans-serif" font-size="11" fill="#2c3e50">クラス2 (y = +1)</text>
+      
+      <circle cx="15" cy="80" r="7" fill="#3498db" stroke="#27ae60" stroke-width="2.5"/>
+      <circle cx="15" cy="80" r="12" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="2,1"/>
+      <text x="30" y="85" font-family="Arial, sans-serif" font-size="11" fill="#27ae60" font-weight="bold">サポートベクター</text>
+      
+      <line x1="10" y1="100" x2="40" y2="100" stroke="#95a5a6" stroke-width="2" stroke-dasharray="6,3"/>
+      <text x="50" y="105" font-family="Arial, sans-serif" font-size="11" fill="#2c3e50">マージン境界</text>
+    </g>
+  </g>
+  
+  <!-- Explanation box -->
+  <g transform="translate(450, 380)">
+    <rect x="0" y="0" width="330" height="95" fill="#ecf0f1" stroke="#95a5a6" stroke-width="2" rx="5"/>
+    <text x="10" y="20" font-family="Arial, sans-serif" font-size="11" fill="#34495e">
+      <tspan x="10" dy="0" font-weight="bold">目的関数: min ½||w||²</tspan>
+      <tspan x="10" dy="16">制約: yᵢ(w·xᵢ + b) ≥ 1  (全データ点)</tspan>
+      <tspan x="10" dy="16">→ 決定境界から最も近い点(サポートベクター)</tspan>
+      <tspan x="15" dy="14">までの距離(マージン)を最大化</tspan>
+      <tspan x="10" dy="16">→ 汎化性能の向上が期待できる</tspan>
+    </rect>
+  </g>
+</svg>
