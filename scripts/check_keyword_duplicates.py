@@ -51,6 +51,9 @@ def extract_keywords(path: Path) -> list[tuple[int, str, str]]:
             continue
         if cells[0] in {"キーワード", "---", ""}:
             continue
+        # Reprint rows are references to the first definition; exclude them.
+        if "［再掲" in cells[1]:
+            continue
         for kw in split_keywords(cells[0]):
             results.append((idx, cells[0], kw))
     return results
