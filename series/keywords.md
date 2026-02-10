@@ -296,7 +296,6 @@ SVMの「距離マージン」と、球面設計における「角度マージ�
 | **Scaled Dot-Product** | 内積を次元の平方根で割り、Softmaxが極端に鋭くなるのを防いで勾配を安定させる技術。 |
 | **Cosine Attention** | $Q$ と $K$ をL2正規化することで、Attentionスコアを純粋な「角度（コサイン類似度）」にする設計。 |
 | **Multi-head Attention** | 異なる部分空間で並列にAttentionを計算し、多様な関係を同時に捉える設計。 |
-| **T5 (Text-to-Text Transfer Transformer)** | すべてのタスクをテキスト生成として統一し、エンコーダ・デコーダ注意機構で条件付けを行う設計。 |
 
 ### 位置と回転
 
