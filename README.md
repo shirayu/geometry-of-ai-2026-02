@@ -89,5 +89,5 @@ MoEやTDA等の最新知見を交え、手法の陳腐化に抗う普遍的な�
 - 主査読: [ChatGPT](https://chatgpt.com/)
 - 副査読・インサイトコンサル: [Gemini](https://gemini.google.com/)
 
-> [!NOTE]
+> [!Warning]
 > 誤りを含めないように努めましたが、鵜呑みにせず慎重に検討しながらお読みください。
