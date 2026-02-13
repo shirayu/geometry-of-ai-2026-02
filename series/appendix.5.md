@@ -188,7 +188,7 @@ $$\psi(\boldsymbol{\theta}) + \phi(\boldsymbol{\eta}) = \boldsymbol{\theta}^\top
 > **双対ポテンシャル（負のエントロピー）**：
 > ルジャンドル変換によって得られる双対関数 $\phi(\boldsymbol{\eta})$ は、シャノンエントロピー $H(\boldsymbol{\eta})$ の符号反転となる：
 > $$\phi(\boldsymbol{\eta}) = \sum_{i=1}^K \eta_i \log \eta_i = -H(\boldsymbol{\eta})$$
-> この勾配 $\nabla_{\boldsymbol{\eta}} \phi = (\log \eta_1 + 1, \dots, \log \eta_K + 1)^\top$ は $\log \boldsymbol{\eta}$ に定数を加えたものを返す。この $+1$ は、$\boldsymbol{\eta}$ が単体制約 $\sum_i \eta_i = 1$ のもとで動くことに由来し、制約付き最適化の観点ではラグランジュ未定乗数に対応する項と見なせる。自然パラメータ $\boldsymbol{\theta}$ の代表元を得るには、ゲージ固定（例えば $\sum_i \theta_i = 0$ ）を課す必要がある。すなわち、**勾配が直接返すのは $\log p$ に定数を加えた量であり、商空間の代表元としての $\boldsymbol{\theta}$ はゲージ固定で初めて一意に定まる**。
+> この勾配 $\nabla_{\boldsymbol{\eta}} \phi = (\log \eta_1 + 1, \dots, \log \eta_K + 1)^\top$ は $\log \boldsymbol{\eta}$ に定数を加えたものを返す。この $+1$ 自体は $\sum_i \eta_i \log \eta_i$ を成分ごとに微分すると現れる項であり、さらに $\boldsymbol{\eta}$ が単体制約 $\sum_i \eta_i = 1$ のもとで動くことを考えると、このような定数成分はラグランジュ未定乗数（＝ゲージ自由度）として吸収される。自然パラメータ $\boldsymbol{\theta}$ の代表元を得るには、ゲージ固定（例えば $\sum_i \theta_i = 0$ ）を課す必要がある。すなわち、**勾配が直接返すのは $\log p$ に定数を加えた量であり、商空間の代表元としての $\boldsymbol{\theta}$ はゲージ固定で初めて一意に定まる**。
 >
 > Softmax（LogSumExpの勾配）と負のエントロピー（その双対関数の勾配）は、まさに「同じ曲線を点から見るか接線から見るか」の関係にある。
 
