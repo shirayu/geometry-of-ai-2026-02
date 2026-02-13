@@ -307,7 +307,7 @@ $$D_{\text{KL}}(p_\theta \| p_{\theta+d\theta}) \approx \frac{1}{2} d\theta^\top
 
 正規分布 $\mathcal{N}(\mu, \sigma^2)$ のフィッシャー情報行列は、解析的に求められる：
 
-$$F = \begin{pmatrix} \frac{1}{\sigma^2} & 0 \\ 0 & \frac{2}{\sigma^4} \end{pmatrix}$$
+$$F = \begin{pmatrix} \frac{1}{\sigma^2} & 0 \\\\ 0 & \frac{2}{\sigma^4} \end{pmatrix}$$
 
 これは以下を意味する：
 
