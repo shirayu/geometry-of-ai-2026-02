@@ -23,7 +23,7 @@
 | **e-接続** | 指数接続<br>(exponential connection) | 指数型分布族で直線 | 自然パラメータ $\boldsymbol{\theta}$ |
 | **m-接続** | 混合接続<br>(mixture connection) | 凸結合（混合分布）で直線 | 期待値パラメータ $\boldsymbol{\eta}$ |
 
-これらは **双対アファイン接続（dual affine connections）** と呼ばれ、Fisher計量に関して互いに双対である。
+これらは **双対アフィン接続（dual affine connections）** または単に双対接続 (dual connections) と呼ばれ、Fisher計量に関して互いに双対である。
 
 **e-接続における測地線**：
 指数型分布族 $p(x; \boldsymbol{\theta}) = \exp(\boldsymbol{\theta}^\top \mathbf{t}(x) - \psi(\boldsymbol{\theta}))$ において、自然パラメータ $\boldsymbol{\theta}$ を線形補間すると、それは e-接続の測地線となる：
