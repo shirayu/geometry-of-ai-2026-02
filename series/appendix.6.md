@@ -146,37 +146,41 @@ $$K(u) = u_1^{2k_1} u_2^{2k_2} \cdots u_d^{2k_d}$$
 > [!TIP]
 > 特異学習理論は非常に奥深い分野であり、ここでは直感的な紹介に留めた。興味のある読者は、代数幾何学（特に広中の特異点解消定理）とベイズ統計学の接点を探求することをお勧めする。それは「知能の形」を数式で書き下すための、現在人類が持ち合わせている最も強力なレンズの一つである。
 
-## 参考文献と推奨図書
+## 参考文献
 
-本Appendixの議論をより深く理解するための文献を挙げる。特異学習理論は数学的に高度な準備（代数幾何学、超関数論）を要するが、まずは概念的な理解から入ることを推奨する。
+### 特異学習理論（SLT）の基礎・総論
 
-### 特異学習理論（SLT）の基礎
+- **[渡辺澄夫 (2012). 『ベイズ統計の理論と方法』. コロナ社.](https://www.coronasha.co.jp/np/isbn/9784339024623/)**（ISBN: 978-4-339-02462-3）
+    - ベイズ統計の基本を固めつつ、特異モデルを含むベイズ推論の考え方に入る入口として有用。SLTの厳密理論そのものは英語の専門書・論文に譲るが、概念整理に向く。
+- **[Watanabe, S. (2009). *Algebraic Geometry and Statistical Learning Theory*. Cambridge University Press.](https://assets.cambridge.org/97805218/64671/copyright/9780521864671_copyright_info.pdf)**（ISBN: 978-0-521-86467-1）
+    - SLTの中核（RLCT・ゼータ関数・特異点解消の応用）を体系化した基本文献。数学的詳細まで追いたい人向け。
+- **[渡辺澄夫 (2006). 『代数幾何と学習理論』. 森北出版.](https://www.hanmoto.com/bd/isbn/9784627813212)**（ISBN: 978-4-627-81321-2）
+    - 上記CUP書の日本語版に位置づく専門書。入手性は状況によるが、図書館等で参照できると強い。
 
-- **渡辺澄夫 (2012). 『ベイズ統計の理論と方法』. コロナ社.**
-    - **推奨:** ★★★
-    - **コメント:** 本Appendixで扱ったWBIC、RLCT、汎化誤差の漸近挙動について、日本語で書かれた最も標準的な教科書。数理的な厳密さを保ちつつ、実装に必要なアルゴリズムまで網羅されている。まずはここから。
-- **Watanabe, S. (2009). *Algebraic Geometry and Statistical Learning Theory*. Cambridge University Press.**
-    - **コメント:** 特異学習理論のバイブル（英語）。広中の特異点解消定理を統計学習に応用する基礎理論が体系化されている。数学的な詳細に挑みたい人向け。
-- **渡辺澄夫 (2006). 『代数幾何と学習理論』. 森北出版.**
-    - **コメント:** 上記英語版の元となった日本語の専門書。絶版の場合も多いが、図書館等で参照されたい。
+### WBIC / WAIC / 一般化誤差（論文）
 
-### 情報幾何学（正則モデルの幾何）
+- **[Watanabe, S. (2013). “A Widely Applicable Bayesian Information Criterion.” *Journal of Machine Learning Research*.](https://jmlr.org/papers/volume14/watanabe13a/watanabe13a.pdf)**
+    - WBICの代表的な定式化。Appendixの「自由エネルギーの漸近」と直結する。
+- **[Watanabe, S. (2010). “Asymptotic Equivalence of Bayes Cross Validation and Widely Applicable Information Criterion in Singular Learning Theory.” *Journal of Machine Learning Research* 11 (2010).](https://jmlr.org/papers/v11/watanabe10a.html)**
+    - WAIC・CV・一般化誤差の関係を理論的に結び、SLTの予測（\(2\lambda/n\) 型の関係など）を理解するのに重要。
 
-- **甘利俊一 (2019). 『情報幾何学の新展開』. サイエンス社.**
-    - **コメント:** [Appendix 5](appendix.5.md) の内容をより深く学ぶための良書。正則な空間におけるFisher計量の役割や、自然勾配法について詳説されている。
-- **Amari, S. (2016). *Information Geometry and Its Applications*. Springer.**
-    - **コメント:** 甘利先生自身による、情報幾何学の集大成的な一冊。
+### 情報幾何学（正則モデル側の基礎）
 
-### 深層学習と特異点・相転移
+- **[甘利俊一 (2019). 『新版 情報幾何学の新展開』. サイエンス社.](https://www.saiensu.co.jp/search/?isbn=978-4-7819-1463-3&y=2019)**（ISBN: 978-4-7819-1463-3）
+    - 正則モデルにおけるFisher計量や自然勾配など、Appendix 5と接続する基礎を日本語で押さえたいときに有用。
+- **[Amari, S. (2016). *Information Geometry and Its Applications*. Springer.](https://link.springer.com/book/10.1007/978-4-431-55978-8)**
+    - 情報幾何の体系的な英語文献。理論と応用の射程が広い。
 
-- **Wei, S., et al. (2022). "The Phases of Learning: singularity, flatness and generalization".**
-    - **コメント:** 特異学習理論の視点から、深層学習の学習過程における相転移現象を解析した論文。
-- **Power, A., et al. (2022). "Grokking: Generalization Beyond Overfitting on Small Algorithmic Datasets".**
-    - **コメント:** 学習データに対するロスが0になった後、長時間経過してから突然検証データへの精度が向上する「Grokking（完全理解）」現象を報告した論文。SLTにおける「特異点脱出」や「相転移」の文脈で議論される重要な現象。
-- **Hochreiter, S., & Schmidhuber, J. (1997). "Flat Minima". *Neural Computation*.**
-    - **コメント:** 「平坦な解（Flat Minima）」が汎化性能に寄与するという概念を早期に提唱した古典的論文。RLCTの直感的理解（谷の広さ）と接続する。
+### 深層学習と特異性・平坦性・grokking
 
-### 数学的背景（代数幾何）
+- **[Wei, S., Murfet, D., Gong, M., Li, H., Gell-Redman, J., Quella, T. “Deep Learning Is Singular, and That’s Good.” (arXiv:2010.11560)](https://arxiv.org/abs/2010.11560)** [著者公開PDF](https://www.suswei.com/publication/wei-2022-singular/wei-2022-singular.pdf)
+    - 「ニューラルネットは特異モデルである」という点を前面に出し、古典的なLaplace近似などの限界も含めて議論する。SLTを深層学習理論へ接続する読み物として良い。
+- **[Power, A., et al. (2022). “Grokking: Generalization Beyond Overfitting on Small Algorithmic Datasets.” (arXiv:2201.02177)](https://arxiv.org/abs/2201.02177)**
+    - 長い停滞の後に突然汎化が進む “grokking” を報告した代表的論文。SLTの相転移的な見方と関連づけて議論されることがある。
+- **[Hochreiter, S., & Schmidhuber, J. (1997). “Flat Minima.” *Neural Computation* 9(1):1–42.](https://direct.mit.edu/neco/article/9/1/1/6027/Flat-Minima)** [著者公開PDF](https://www.bioinf.jku.at/publications/older/3304.pdf)
+    - 「平坦な解（flat minima）が汎化に有利」という古典的主張の代表。RLCTの直感（谷の“広さ”）を説明するときの背景として参照しやすい。
 
-- **Hironaka, H. (1964). "Resolution of Singularities of an Algebraic Variety Over a Field of Characteristic Zero". *Annals of Mathematics*.**
-    - **コメント:** 広中平祐先生による特異点解消定理の原論文。SLTが成立するための数学的礎（フィールズ賞受賞業績）。歴史的価値として。
+### 数学的背景（代数幾何：特異点解消）
+
+- **[Hironaka, H. (1964). “Resolution of Singularities of an Algebraic Variety Over a Field of Characteristic Zero.” *Annals of Mathematics* (1964).](https://www.jstor.org/stable/1970486)** [PDF（ミラー）](https://math.tecnico.ulisboa.pt/seminars/download.php?fid=2650)
+    - 特異点解消の原典。SLTの数学的基盤として歴史的・理論的に重要。
